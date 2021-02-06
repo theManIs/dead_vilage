@@ -44,7 +44,23 @@ public class EnemyAI : MonoBehaviour
 		EnemyVision(); // Call the enemey vision function
 		EnemyMove(); // Call the enemy movement function
 		EnemyAvoid(); // Call the enemy avoidance function
+        EnemyDies();
 	}
+
+    void EnemyDies()
+    {
+        CharacterMainBridge cmb = gameObject.GetComponent<CharacterMainBridge>();
+
+        if (cmb != null && cmb.HealthKickerContraption.haveIKilled())
+        {
+            if (DieEffect)
+            {
+                Destroy(Instantiate(DieEffect, transform.position, Quaternion.identity), 1.5f);
+            }
+
+            Destroy(this.gameObject, 0.1f);
+        }
+    }
 	
 	void EnemyVision()
 	{
@@ -75,13 +91,6 @@ public class EnemyAI : MonoBehaviour
 			else 	// If the distance from the player is not greater than a number then continue
 			{
 				anim._animRun = false; // Disable the run animation
-
-                if (DieEffect)
-                {
-                    Destroy(Instantiate(DieEffect, transform.position, Quaternion.identity), 1.5f);
-                }
-
-                Destroy(this.gameObject, 0.1f);
 			}
 		}
 		else if(FindLastPosition() != null) // If the player has NOT been spotted and a last position has been found then continue **FindLastPosition() returns a GameObject

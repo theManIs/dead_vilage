@@ -22,6 +22,17 @@ namespace UnityStandardAssets.SceneUtils
             {
                 return;
             }
+
+            CharacterMainBridge cmb = hit.transform.GetComponent<CharacterMainBridge>();
+
+            if (cmb != null)
+            {
+                Debug.Log(hit.transform.gameObject.name);
+
+                cmb.HealthKickerContraption.hitMe(cmb.HealthKickerContraption.NormalDamage);
+            }
+
+
             transform.position = hit.point + hit.normal*surfaceOffset;
             if (setTargetOn != null)
             {
