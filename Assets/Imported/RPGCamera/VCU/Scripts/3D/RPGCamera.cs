@@ -11,6 +11,7 @@ public class RPGCamera : VirtualCamera
     [Range(0f, 300)]
     public float sensitivity = 120f;
     [Tooltip("Current relative offset to the target.")]
+    public Vector2 CameraStartRotation = new Vector2();
     public Vector3 offset;
     [Tooltip("Minimum relative offset to the target GameObject.")]
     public Vector3 minOffset;
@@ -49,6 +50,7 @@ public class RPGCamera : VirtualCamera
         }
 
         cameraTransform = transform;
+        cameraRotation = CameraStartRotation;
     }
 
     // Update is called once per frame
@@ -79,6 +81,18 @@ public class RPGCamera : VirtualCamera
         offset.z = Mathf.Clamp(offset.z, minOffset.z, maxOffset.z);
 
         Quaternion rotation = Quaternion.Euler(cameraRotation.y, cameraRotation.x, 0);
+        Vector3 position = rotation * new Vector3(offset.x, offset.y, offset.z) + target.position;
+
+        cameraTransform.rotation = rotation;
+        cameraTransform.position = position;
+    }
+
+    private void ApplyRotationPosition()
+    {
+//        offset.z -= TryInvert(-Input.GetAxis(zoom)) * sensitivity * Time.deltaTime;
+//        offset.z = Mathf.Clamp(offset.z, minOffset.z, maxOffset.z);
+
+        Quaternion rotation = Quaternion.Euler(0, 45, 0);
         Vector3 position = rotation * new Vector3(offset.x, offset.y, offset.z) + target.position;
 
         cameraTransform.rotation = rotation;

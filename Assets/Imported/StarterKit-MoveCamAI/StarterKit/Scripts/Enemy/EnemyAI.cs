@@ -31,6 +31,8 @@ public class EnemyAI : MonoBehaviour
 	private float   avoidDist = 2f,
 					avoidAngleDist = 2f,
 					avoidSpeed = 100f;
+    
+    private bool _amIDeath = false;
 	
 	void Start()
 	{
@@ -41,10 +43,13 @@ public class EnemyAI : MonoBehaviour
 	// FixedUpdate is used for physics based movement
 	void FixedUpdate ()
 	{
-		EnemyVision(); // Call the enemey vision function
-		EnemyMove(); // Call the enemy movement function
-		EnemyAvoid(); // Call the enemy avoidance function
-        EnemyDies();
+        if (!_amIDeath)
+        {
+            EnemyVision(); // Call the enemey vision function
+            EnemyMove(); // Call the enemy movement function
+            EnemyAvoid(); // Call the enemy avoidance function
+            EnemyDies();
+        }
 	}
 
     void EnemyDies()
@@ -53,12 +58,24 @@ public class EnemyAI : MonoBehaviour
 
         if (cmb != null && cmb.HealthKickerContraption.haveIKilled())
         {
-            if (DieEffect)
+            Animator anima = GetComponent<Animator>();
+//            Collider collider = GetComponent<Collider>();
+//            Rigidbody rigidbody = GetComponent<Rigidbody>();
+
+            if (anima != null/* && collider != null && rigidbody != null*/)
             {
-                Destroy(Instantiate(DieEffect, transform.position, Quaternion.identity), 1.5f);
+//                collider.enabled = false;
+//                rigidbody.isKinematic = true;
+
+                anima.SetTrigger("Death");
             }
 
-            Destroy(this.gameObject, 0.1f);
+//            if (DieEffect)
+//            {
+//                Destroy(Instantiate(DieEffect, transform.position, Quaternion.identity), 1.5f);
+//            }
+//
+            Destroy(this.gameObject, 2f);
         }
     }
 	

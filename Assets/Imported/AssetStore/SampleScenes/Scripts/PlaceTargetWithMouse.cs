@@ -31,12 +31,13 @@ namespace UnityStandardAssets.SceneUtils
 
                 cmb.HealthKickerContraption.hitMe(cmb.HealthKickerContraption.NormalDamage);
             }
-
-
-            transform.position = hit.point + hit.normal*surfaceOffset;
-            if (setTargetOn != null)
+            else
             {
-                setTargetOn.SendMessage("SetTarget", transform);
+                transform.position = hit.point + hit.normal * surfaceOffset;
+                if (setTargetOn != null)
+                {
+                    setTargetOn.SendMessage("SetTarget", transform);
+                }
             }
         }
     }
