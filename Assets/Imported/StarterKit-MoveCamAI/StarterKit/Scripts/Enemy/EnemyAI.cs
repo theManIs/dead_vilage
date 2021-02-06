@@ -68,6 +68,8 @@ public class EnemyAI : MonoBehaviour
 //                rigidbody.isKinematic = true;
 
                 anima.SetTrigger("Death");
+
+                _amIDeath = true;
             }
 
 //            if (DieEffect)
