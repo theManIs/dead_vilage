@@ -10,7 +10,7 @@ using System.Collections;
 public class EnemyAI : MonoBehaviour
 {
 
-    public GameObject DieEffect;
+    public BillboardHealth BillBoardHealth;
 
     private Transform player;
 	private CharacterAnimation anim;
@@ -33,24 +33,45 @@ public class EnemyAI : MonoBehaviour
 					avoidSpeed = 100f;
     
     private bool _amIDeath = false;
-	
-	void Start()
+    private bool _hasBillboardInit = false;
+
+    void Start()
 	{
 		player = GameObject.Find("Player").transform; // Find the player GameObject
 		anim = GetComponent<CharacterAnimation>(); // Get the animation script
-	}
-	
-	// FixedUpdate is used for physics based movement
+    }
+
+    // FixedUpdate is used for physics based movement
 	void FixedUpdate ()
-	{
+    {
         if (!_amIDeath)
         {
+
+            InitBillboard();
             EnemyVision(); // Call the enemey vision function
             EnemyMove(); // Call the enemy movement function
             EnemyAvoid(); // Call the enemy avoidance function
             EnemyDies();
         }
 	}
+
+    private void InitBillboard()
+    {
+        CharacterMainBridge cmb = gameObject.GetComponent<CharacterMainBridge>();
+
+        if (!_hasBillboardInit && BillBoardHealth && cmb.HealthKickerContraption != null)
+        {
+            BillBoardHealth.SetMaxHealth(cmb.HealthKickerContraption.Health);
+            BillBoardHealth.SetHealth(cmb.HealthKickerContraption.Health);
+
+            cmb.HealthKickerContraption.IAmHit((int amount) =>
+            {
+                BillBoardHealth.TakeDamage(cmb.HealthKickerContraption.NormalDamage);
+            });
+
+            _hasBillboardInit = true;
+        }
+    }
 
     void EnemyDies()
     {
@@ -96,6 +117,16 @@ public class EnemyAI : MonoBehaviour
 			}
 		}
 	}
+
+    private void SlashOne()
+    {
+        if (!anim._animRun && !_amIDeath)
+        {
+            Animator anima = GetComponent<Animator>();
+
+            anima.SetTrigger("slash2");
+        }
+    }
 	
 	void EnemyMove()
 	{
@@ -107,10 +138,12 @@ public class EnemyAI : MonoBehaviour
 				GetComponent<Rigidbody>().MovePosition(Vector3.MoveTowards(transform.position, player.position, Time.deltaTime * speed)); // Move the enemy towards the players position
 				anim._animRun = true; // Enable the run animation
 			}
-			else 	// If the distance from the player is not greater than a number then continue
-			{
-				anim._animRun = false; // Disable the run animation
-			}
+            else if (anim._animRun)     // If the distance from the player is not greater than a number then continue
+            {
+                InvokeRepeating("SlashOne", 0, 2);
+
+                anim._animRun = false; // Disable the run animation
+            }
 		}
 		else if(FindLastPosition() != null) // If the player has NOT been spotted and a last position has been found then continue **FindLastPosition() returns a GameObject
 		{
