@@ -25,14 +25,14 @@ public class EnemyAI : MonoBehaviour
 						enemyLayer = (1 << 9),
 						playerLayer = (1 << 8);
 	
-	private float MovementSpeed = 8f;
+	public float MovementSpeed = 8f;
 
 	// AI wall avoidance variables
 	private float   avoidDist = 2f,
 					avoidAngleDist = 2f,
 					avoidSpeed = 100f;
-    
-    private bool _amIDeath = false;
+
+    public bool AmIDeath { get; private set; } = false;
     private bool _hasBillboardInit = false;
 
     void Start()
@@ -44,7 +44,7 @@ public class EnemyAI : MonoBehaviour
     // FixedUpdate is used for physics based movement
 	void FixedUpdate ()
     {
-        if (!_amIDeath)
+        if (!AmIDeath)
         {
 
             InitBillboard();
@@ -90,7 +90,7 @@ public class EnemyAI : MonoBehaviour
 
                 anima.SetTrigger("Death");
 
-                _amIDeath = true;
+                AmIDeath = true;
             }
 
 //            if (DieEffect)
@@ -120,7 +120,7 @@ public class EnemyAI : MonoBehaviour
 
     private void SlashOne()
     {
-        if (!anim._animRun && !_amIDeath)
+        if (!anim._animRun && !AmIDeath)
         {
             Animator anima = GetComponent<Animator>();
 
