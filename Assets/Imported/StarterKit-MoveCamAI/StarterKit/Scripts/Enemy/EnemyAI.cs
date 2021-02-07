@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
 						enemyLayer = (1 << 9),
 						playerLayer = (1 << 8);
 	
-	private float speed = 8f;
+	private float MovementSpeed = 8f;
 
 	// AI wall avoidance variables
 	private float   avoidDist = 2f,
@@ -135,7 +135,7 @@ public class EnemyAI : MonoBehaviour
 			if(Vector3.Distance(transform.position,player.position) > 2) // If the distance from the player is greater than a number then continue
 			{
 				EnemyRotate(player.position); // Calls the rotate function sending the players position
-				GetComponent<Rigidbody>().MovePosition(Vector3.MoveTowards(transform.position, player.position, Time.deltaTime * speed)); // Move the enemy towards the players position
+				GetComponent<Rigidbody>().MovePosition(Vector3.MoveTowards(transform.position, player.position, Time.deltaTime * MovementSpeed)); // Move the enemy towards the players position
 				anim._animRun = true; // Enable the run animation
 			}
             else if (anim._animRun)     // If the distance from the player is not greater than a number then continue
@@ -148,7 +148,7 @@ public class EnemyAI : MonoBehaviour
 		else if(FindLastPosition() != null) // If the player has NOT been spotted and a last position has been found then continue **FindLastPosition() returns a GameObject
 		{
 			EnemyRotate(FindLastPosition().transform.position); // Rotate enemy towards the found last position game object
-			GetComponent<Rigidbody>().MovePosition(Vector3.MoveTowards(transform.position, FindLastPosition().transform.position, Time.deltaTime * speed)); // Move the enemy towards the found last position game object
+			GetComponent<Rigidbody>().MovePosition(Vector3.MoveTowards(transform.position, FindLastPosition().transform.position, Time.deltaTime * MovementSpeed)); // Move the enemy towards the found last position game object
 			anim._animRun = true; // Enable the run animation
 			Debug.DrawLine(transform.position, FindLastPosition().transform.position, Color.green); // Draw a green line between the enemy and the last position
 		}
