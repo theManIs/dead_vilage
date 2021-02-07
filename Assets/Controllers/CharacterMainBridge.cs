@@ -37,11 +37,20 @@ public class CharacterMainBridge : MonoBehaviour
                         {
                             if (!enemyAi.AmIDeath)
                             {
+
+                                Quaternion hitRot = Quaternion.FromToRotation(transform.forward, (enemyAi.transform.position - transform.position).normalized);
+                                transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y, 0);
+
                                 _animator.SetTrigger("Slash");
                                 Debug.Log("Super fuck " + enemyAi.gameObject.name);
 
                                 enemyAi.gameObject.GetComponent<CharacterMainBridge>()
                                     .HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
+//                                Quaternion hitRot = Quaternion.FromToRotation((enemyAi.transform.position - transform.position), enemyAi.transform.position);
+//                                Quaternion hitRot = Quaternion.FromToRotation(transform.forward, enemyAi.transform.position.);
+//                                transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y - 90, 0);
+//                                transform.rotation = hitRot;
+//                                transform.LookAt(enemyAi.transform.position);
 
                                 break;
                             }
