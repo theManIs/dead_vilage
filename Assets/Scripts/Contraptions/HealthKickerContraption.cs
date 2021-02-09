@@ -26,4 +26,9 @@ public class HealthKickerContraption
     }
 
     public bool haveIKilled() => Health <= 0;
+
+    public void SetHealth(int amount)
+    {
+        Health = amount;
+    }
 }

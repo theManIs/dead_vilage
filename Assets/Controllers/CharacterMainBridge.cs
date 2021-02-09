@@ -10,6 +10,7 @@ public class CharacterMainBridge : MonoBehaviour
     public int AttackSpeed = 1;
     public int AttackRange = 3;
     public bool isHumanControl = true;
+    public int HealthPoint = 10;
     public bool AmIDeath { get; private set; } = false;
 
     private Animator _animator;
@@ -36,30 +37,30 @@ public class CharacterMainBridge : MonoBehaviour
             _bilboardInit = true;
         }
 
-        if (isHumanControl)
-        {
-            if (Time.frameCount % (100 / AttackSpeed) == 0)
+//        if (isHumanControl)
+//        {
+            if (Time.frameCount % (200 / AttackSpeed) == 0)
             {
-                AnimatorClipInfo[] anstate = _animator.GetCurrentAnimatorClipInfo(0);
+                HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
+            AnimatorClipInfo[] anstate = _animator.GetCurrentAnimatorClipInfo(0);
 
                 if (anstate[0].clip.name != "Standing Melee Attack Downward")
                 {
                     CharacterMainBridge[] enemies = FindObjectsOfType<CharacterMainBridge>()
-                        .Where(element => !element.isHumanControl).ToArray();
+                        .Where(element => element.isHumanControl != isHumanControl && !element.AmIDeath).ToArray();
 
                     foreach (CharacterMainBridge enemyAi in enemies)
                     {
                         if ((enemyAi.transform.position - transform.position).sqrMagnitude < AttackRange)
                         {
-//                            if (!enemyAi.AmIDeath)
-//                            {
-
+                            if (!AmIDeath)
+                            {
                                 Quaternion hitRot = Quaternion.FromToRotation(transform.forward, (enemyAi.transform.position - transform.position).normalized);
                                 transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y, 0);
 
                                 _animator.SetTrigger("Slash");
-                                Debug.Log("Super fuck " + enemyAi.gameObject.name);
-                                Debug.Log(enemyAi.HealthKickerContraption);
+//                                Debug.Log("Super fuck " + enemyAi.gameObject.name);
+//                                Debug.Log(enemyAi.HealthKickerContraption);
 
                                 enemyAi.HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
 //                                Quaternion hitRot = Quaternion.FromToRotation((enemyAi.transform.position - transform.position), enemyAi.transform.position);
@@ -69,17 +70,19 @@ public class CharacterMainBridge : MonoBehaviour
 //                                transform.LookAt(enemyAi.transform.position);
 
                                 break;
-//                            }
+                            }
                         }
                     }
                 }
             }
-        }
+//        }
     }
 
     public void OnEnable()
     {
         HealthKickerContraption = new HealthKickerContraption();
+        HealthKickerContraption.SetHealth(HealthPoint);
+
         _animator = GetComponent<Animator>();
 
         if (!isHumanControl)
@@ -111,11 +114,11 @@ public class CharacterMainBridge : MonoBehaviour
             if (_animator != null)
             {
                 _animator.SetTrigger("Death");
-
+                Debug.Log("Set trigger Death");
                 AmIDeath = true;
             }
 
-            Destroy(this.gameObject, 2f);
+            Destroy(this.gameObject, 4f);
         }
     }
 }
