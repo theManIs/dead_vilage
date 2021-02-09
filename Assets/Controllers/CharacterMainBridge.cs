@@ -1,51 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CharacterMainBridge : MonoBehaviour
 {
+    public BillboardHealth BillBoardHealth;
     public HealthKickerContraption HealthKickerContraption;
     public int AttackSpeed = 1;
-    public bool Ally;
     public int AttackRange = 3;
+    public bool isHumanControl = true;
+    public bool AmIDeath { get; private set; } = false;
 
     private Animator _animator;
+    private BaseArtificialIntelligence _ai;
+    private bool _bilboardInit = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        HealthKickerContraption = new HealthKickerContraption();
-        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Ally)
+        if (!AmIDeath)
+        {
+            EnemyDies();
+        }
+
+        if (!_bilboardInit)
+        {
+            InitBillboard();
+
+            _bilboardInit = true;
+        }
+
+        if (isHumanControl)
         {
             if (Time.frameCount % (100 / AttackSpeed) == 0)
             {
                 AnimatorClipInfo[] anstate = _animator.GetCurrentAnimatorClipInfo(0);
 
-                if (anstate[0].clip.name != "mixamo.com")
+                if (anstate[0].clip.name != "Standing Melee Attack Downward")
                 {
-                    EnemyAI[] enemies = FindObjectsOfType<EnemyAI>();
+                    CharacterMainBridge[] enemies = FindObjectsOfType<CharacterMainBridge>()
+                        .Where(element => !element.isHumanControl).ToArray();
 
-                    foreach (EnemyAI enemyAi in enemies)
+                    foreach (CharacterMainBridge enemyAi in enemies)
                     {
                         if ((enemyAi.transform.position - transform.position).sqrMagnitude < AttackRange)
                         {
-                            if (!enemyAi.AmIDeath)
-                            {
+//                            if (!enemyAi.AmIDeath)
+//                            {
 
                                 Quaternion hitRot = Quaternion.FromToRotation(transform.forward, (enemyAi.transform.position - transform.position).normalized);
                                 transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y, 0);
 
                                 _animator.SetTrigger("Slash");
                                 Debug.Log("Super fuck " + enemyAi.gameObject.name);
+                                Debug.Log(enemyAi.HealthKickerContraption);
 
-                                enemyAi.gameObject.GetComponent<CharacterMainBridge>()
-                                    .HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
+                                enemyAi.HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
 //                                Quaternion hitRot = Quaternion.FromToRotation((enemyAi.transform.position - transform.position), enemyAi.transform.position);
 //                                Quaternion hitRot = Quaternion.FromToRotation(transform.forward, enemyAi.transform.position.);
 //                                transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y - 90, 0);
@@ -53,11 +69,53 @@ public class CharacterMainBridge : MonoBehaviour
 //                                transform.LookAt(enemyAi.transform.position);
 
                                 break;
-                            }
+//                            }
                         }
                     }
                 }
             }
+        }
+    }
+
+    public void OnEnable()
+    {
+        HealthKickerContraption = new HealthKickerContraption();
+        _animator = GetComponent<Animator>();
+
+        if (!isHumanControl)
+        {
+            _ai = new BaseArtificialIntelligence();
+        }
+    }
+
+
+    private void InitBillboard()
+    {
+        if (BillBoardHealth && HealthKickerContraption != null)
+        {
+            BillBoardHealth.SetMaxHealth(HealthKickerContraption.Health);
+            BillBoardHealth.SetHealth(HealthKickerContraption.Health);
+
+            HealthKickerContraption.IAmHit((int amount) =>
+            {
+                BillBoardHealth.TakeDamage(HealthKickerContraption.NormalDamage);
+            });
+        }
+    }
+
+    void EnemyDies()
+    {
+        if (HealthKickerContraption.haveIKilled())
+        {
+
+            if (_animator != null)
+            {
+                _animator.SetTrigger("Death");
+
+                AmIDeath = true;
+            }
+
+            Destroy(this.gameObject, 2f);
         }
     }
 }

@@ -47,7 +47,7 @@ public class EnemyAI : MonoBehaviour
         if (!AmIDeath)
         {
 
-            InitBillboard();
+//            InitBillboard();
             EnemyVision(); // Call the enemey vision function
             EnemyMove(); // Call the enemy movement function
             EnemyAvoid(); // Call the enemy avoidance function
@@ -55,23 +55,23 @@ public class EnemyAI : MonoBehaviour
         }
 	}
 
-    private void InitBillboard()
-    {
-        CharacterMainBridge cmb = gameObject.GetComponent<CharacterMainBridge>();
-
-        if (!_hasBillboardInit && BillBoardHealth && cmb.HealthKickerContraption != null)
-        {
-            BillBoardHealth.SetMaxHealth(cmb.HealthKickerContraption.Health);
-            BillBoardHealth.SetHealth(cmb.HealthKickerContraption.Health);
-
-            cmb.HealthKickerContraption.IAmHit((int amount) =>
-            {
-                BillBoardHealth.TakeDamage(cmb.HealthKickerContraption.NormalDamage);
-            });
-
-            _hasBillboardInit = true;
-        }
-    }
+//    private void InitBillboard()
+//    {
+//        CharacterMainBridge cmb = gameObject.GetComponent<CharacterMainBridge>();
+//
+//        if (!_hasBillboardInit && BillBoardHealth && cmb.HealthKickerContraption != null)
+//        {
+//            BillBoardHealth.SetMaxHealth(cmb.HealthKickerContraption.Health);
+//            BillBoardHealth.SetHealth(cmb.HealthKickerContraption.Health);
+//
+//            cmb.HealthKickerContraption.IAmHit((int amount) =>
+//            {
+//                BillBoardHealth.TakeDamage(cmb.HealthKickerContraption.NormalDamage);
+//            });
+//
+//            _hasBillboardInit = true;
+//        }
+//    }
 
     void EnemyDies()
     {
