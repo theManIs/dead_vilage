@@ -11,11 +11,17 @@ public class CharacterMainBridge : MonoBehaviour
     public int AttackRange = 3;
     public bool isHumanControl = true;
     public int HealthPoint = 10;
+    public CharacterMainBridge HumanPlayer;
     public bool AmIDeath { get; private set; } = false;
 
     private Animator _animator;
     private BaseArtificialIntelligence _ai;
     private bool _bilboardInit = false;
+    private RaycastHit _ubiquitousRaycastHit;
+    private bool _playerSpotted = false;
+    private LayerMask _lastPosLayer = (1 << 10),
+        enemyLayer = (1 << 9),
+        playerLayer = (1 << 8);
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +33,7 @@ public class CharacterMainBridge : MonoBehaviour
     {
         if (!AmIDeath)
         {
+            EnemyVision();
             EnemyDies();
         }
 
@@ -119,6 +126,27 @@ public class CharacterMainBridge : MonoBehaviour
             }
 
             Destroy(this.gameObject, 4f);
+        }
+    }
+
+    public void EnemyVision()
+    {
+        if (HumanPlayer)
+        {
+            if (Physics.Linecast(transform.position, HumanPlayer.transform.position, out RaycastHit hitPlayer, ~(_lastPosLayer))) // Linecast towards the player ignoring the last position layer
+            {
+//                Debug.Log("Raycast spotted");
+                if (hitPlayer.collider.tag == "Player") // if the raycast hits the player then continue
+                {
+//                    Debug.Log("Player spotted");
+                    _playerSpotted = true; // Player has been spotted
+                    Debug.DrawLine(transform.position, hitPlayer.point, Color.red); //Draw a red line from the enemy to the player
+                }
+                else // If the raycast doesn't hit the player then continue with ELSE
+                {
+                    _playerSpotted = false; // Player has not been spotted
+                }
+            }
         }
     }
 }
