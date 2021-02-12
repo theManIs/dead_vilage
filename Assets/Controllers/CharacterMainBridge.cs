@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class CharacterMainBridge : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class CharacterMainBridge : MonoBehaviour
     public CharacterMainBridge HumanPlayer;
     public bool AmIDeath { get; private set; } = false;
 
+    private AICharacterControl _aiCharacterControl;
     private Animator _animator;
     private BaseArtificialIntelligence _ai;
     private bool _bilboardInit = false;
@@ -48,7 +51,7 @@ public class CharacterMainBridge : MonoBehaviour
 //        {
             if (Time.frameCount % (200 / AttackSpeed) == 0)
             {
-                HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
+//                HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
             AnimatorClipInfo[] anstate = _animator.GetCurrentAnimatorClipInfo(0);
 
                 if (anstate[0].clip.name != "Standing Melee Attack Downward")
@@ -58,9 +61,11 @@ public class CharacterMainBridge : MonoBehaviour
 
                     foreach (CharacterMainBridge enemyAi in enemies)
                     {
-                        if ((enemyAi.transform.position - transform.position).sqrMagnitude < AttackRange)
+//                        if (Vector3.Distance(enemyAi.transform.position ,transform.position) < AttackRange)
+                    if ((enemyAi.transform.position - transform.position).sqrMagnitude < AttackRange * AttackRange)
                         {
-                            if (!AmIDeath)
+                            Debug.Log(Vector3.Distance(enemyAi.transform.position, transform.position) + " " + AttackRange + " " + (Vector3.Distance(enemyAi.transform.position, transform.position) < (float)AttackRange));
+                        if (!AmIDeath)
                             {
                                 Quaternion hitRot = Quaternion.FromToRotation(transform.forward, (enemyAi.transform.position - transform.position).normalized);
                                 transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y, 0);
@@ -87,8 +92,13 @@ public class CharacterMainBridge : MonoBehaviour
 
     public void OnEnable()
     {
+        _aiCharacterControl = GetComponent<AICharacterControl>();
+        
         HealthKickerContraption = new HealthKickerContraption();
         HealthKickerContraption.SetHealth(HealthPoint);
+
+//        GetComponent<NavMeshAgent>().stoppingDistance = Mathf.Sqrt(AttackRange);
+        GetComponent<NavMeshAgent>().stoppingDistance = AttackRange;
 
         _animator = GetComponent<Animator>();
 
@@ -131,7 +141,7 @@ public class CharacterMainBridge : MonoBehaviour
 
     public void EnemyVision()
     {
-        if (HumanPlayer)
+        if (!isHumanControl && HumanPlayer)
         {
             if (Physics.Linecast(transform.position, HumanPlayer.transform.position, out RaycastHit hitPlayer, ~(_lastPosLayer))) // Linecast towards the player ignoring the last position layer
             {
@@ -141,6 +151,7 @@ public class CharacterMainBridge : MonoBehaviour
 //                    Debug.Log("Player spotted");
                     _playerSpotted = true; // Player has been spotted
                     Debug.DrawLine(transform.position, hitPlayer.point, Color.red); //Draw a red line from the enemy to the player
+                    _aiCharacterControl.SetTarget(HumanPlayer.transform);
                 }
                 else // If the raycast doesn't hit the player then continue with ELSE
                 {
