@@ -2859,7 +2859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BillBoardHealth: {fileID: 4110783556802184856}
   AttackSpeed: 1
-  AttackRange: 2
+  AttackRange: 7
   isHumanControl: 0
   HealthPoint: 2
   HumanPlayer: {fileID: 0}

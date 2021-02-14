@@ -12,7 +12,7 @@ public class HealthKickerContraption
 
     public int hitMe(int amount)
     {
-        Debug.Log("hit me " + amount);
+//        Debug.Log("hit me " + amount);
         Health = Health - amount;
 
         WhenHit(amount);

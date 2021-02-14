@@ -77,14 +77,17 @@ public class RPGCamera : VirtualCamera
             }
         }
 
-        offset.z -= TryInvert(-Input.GetAxis(zoom)) * sensitivity * Time.deltaTime;
-        offset.z = Mathf.Clamp(offset.z, minOffset.z, maxOffset.z);
+        if (target)
+        {
+            offset.z -= TryInvert(-Input.GetAxis(zoom)) * sensitivity * Time.deltaTime;
+            offset.z = Mathf.Clamp(offset.z, minOffset.z, maxOffset.z);
 
-        Quaternion rotation = Quaternion.Euler(cameraRotation.y, cameraRotation.x, 0);
-        Vector3 position = rotation * new Vector3(offset.x, offset.y, offset.z) + target.position;
+            Quaternion rotation = Quaternion.Euler(cameraRotation.y, cameraRotation.x, 0);
+            Vector3 position = rotation * new Vector3(offset.x, offset.y, offset.z) + target.position;
 
-        cameraTransform.rotation = rotation;
-        cameraTransform.position = position;
+            cameraTransform.rotation = rotation;
+            cameraTransform.position = position;
+        }
     }
 
     private void ApplyRotationPosition()

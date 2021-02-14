@@ -15,6 +15,7 @@ public class CharacterMainBridge : MonoBehaviour
     public int HealthPoint = 10;
     public CharacterMainBridge HumanPlayer;
     public CharacterLayerEnum CharacterLayerEnum = CharacterLayerEnum.None;
+    public int AnimationRotationError = 0;
     public bool AmIDeath { get; private set; } = false;
 
     private AICharacterControl _aiCharacterControl;
@@ -53,23 +54,23 @@ public class CharacterMainBridge : MonoBehaviour
             if (Time.frameCount % (200 / AttackSpeed) == 0)
             {
 //                HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
-            AnimatorClipInfo[] anstate = _animator.GetCurrentAnimatorClipInfo(0);
-
-                if (anstate.Length > 0 && anstate[0].clip.name != "Standing Melee Attack Downward")
-                {
+//            AnimatorClipInfo[] anstate = _animator.GetCurrentAnimatorClipInfo((int)CharacterLayerEnum);
+//
+//            if (anstate.Length > 0 && anstate[0].clip.name != "Standing Melee Attack Downward")
+//                {
+//                                Debug.Log("Clip lock passed " + gameObject.name);
                     CharacterMainBridge[] enemies = FindObjectsOfType<CharacterMainBridge>()
                         .Where(element => element.isHumanControl != isHumanControl && !element.AmIDeath).ToArray();
+//                    Debug.Log("Enemies found " + gameObject.name + " " + enemies.Length);
 
-                    foreach (CharacterMainBridge enemyAi in enemies)
-                    {
+                foreach (CharacterMainBridge enemyAi in enemies)
+                {
 //                        if (Vector3.Distance(enemyAi.transform.position ,transform.position) < AttackRange)
                     if ((enemyAi.transform.position - transform.position).sqrMagnitude <= AttackRange * AttackRange)
-                        {
-                            Debug.Log(Vector3.Distance(enemyAi.transform.position, transform.position) + " " + AttackRange + " " + (Vector3.Distance(enemyAi.transform.position, transform.position) < (float)AttackRange));
+                    {
+//                            Debug.Log(Vector3.Distance(enemyAi.transform.position, transform.position) + " " + AttackRange + " " + (Vector3.Distance(enemyAi.transform.position, transform.position) < (float)AttackRange));
                         if (!AmIDeath)
                             {
-                                Quaternion hitRot = Quaternion.FromToRotation(transform.forward, (enemyAi.transform.position - transform.position).normalized);
-                                transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y, 0);
 
                                 _animator.SetTrigger("Slash");
 //                                Debug.Log("Super fuck " + enemyAi.gameObject.name);
@@ -80,14 +81,20 @@ public class CharacterMainBridge : MonoBehaviour
 //                                Quaternion hitRot = Quaternion.FromToRotation(transform.forward, enemyAi.transform.position.);
 //                                transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y - 90, 0);
 //                                transform.rotation = hitRot;
-//                                transform.LookAt(enemyAi.transform.position);
+
+
+//                                Quaternion hitRot = Quaternion.FromToRotation(transform.forward, (enemyAi.transform.position - transform.position).normalized);
+//                                transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y, 0);
+                                transform.LookAt(enemyAi.transform.position);
+
+                                transform.Rotate(Vector3.up, AnimationRotationError);
 
                                 break;
                             }
                         }
                     }
                 }
-            }
+//            }
 //        }
     }
 
@@ -98,10 +105,10 @@ public class CharacterMainBridge : MonoBehaviour
         HealthKickerContraption = new HealthKickerContraption();
         HealthKickerContraption.SetHealth(HealthPoint);
 
-        if (!isHumanControl)
-        {
-            GetComponent<NavMeshAgent>().stoppingDistance = AttackRange;
-        }
+//        if (!isHumanControl)
+//        {
+//            GetComponent<NavMeshAgent>().stoppingDistance = AttackRange;
+//        }
 
         _animator = GetComponent<Animator>();
 
@@ -126,7 +133,7 @@ public class CharacterMainBridge : MonoBehaviour
         } 
         else 
         {
-            _animator.SetLayerWeight(0, 1);
+            _animator.SetLayerWeight(1, 1);
         }
     }
 
@@ -153,7 +160,7 @@ public class CharacterMainBridge : MonoBehaviour
             if (_animator != null)
             {
                 _animator.SetTrigger("Death");
-                Debug.Log("Set trigger Death");
+//                Debug.Log("Set trigger Death");
                 AmIDeath = true;
             }
 
@@ -174,10 +181,12 @@ public class CharacterMainBridge : MonoBehaviour
                     _playerSpotted = true; // Player has been spotted
                     Debug.DrawLine(transform.position, hitPlayer.point, Color.red); //Draw a red line from the enemy to the player
                     _aiCharacterControl.SetTarget(HumanPlayer.transform);
+                    GetComponent<NavMeshAgent>().stoppingDistance = AttackRange;
                 }
                 else // If the raycast doesn't hit the player then continue with ELSE
                 {
                     _playerSpotted = false; // Player has not been spotted
+                    GetComponent<NavMeshAgent>().stoppingDistance = 0.2f;
                 }
             }
         }
