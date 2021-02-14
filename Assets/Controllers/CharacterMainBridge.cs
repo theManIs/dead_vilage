@@ -14,6 +14,7 @@ public class CharacterMainBridge : MonoBehaviour
     public bool isHumanControl = true;
     public int HealthPoint = 10;
     public CharacterMainBridge HumanPlayer;
+    public CharacterLayerEnum CharacterLayerEnum = CharacterLayerEnum.None;
     public bool AmIDeath { get; private set; } = false;
 
     private AICharacterControl _aiCharacterControl;
@@ -54,7 +55,7 @@ public class CharacterMainBridge : MonoBehaviour
 //                HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
             AnimatorClipInfo[] anstate = _animator.GetCurrentAnimatorClipInfo(0);
 
-                if (anstate[0].clip.name != "Standing Melee Attack Downward")
+                if (anstate.Length > 0 && anstate[0].clip.name != "Standing Melee Attack Downward")
                 {
                     CharacterMainBridge[] enemies = FindObjectsOfType<CharacterMainBridge>()
                         .Where(element => element.isHumanControl != isHumanControl && !element.AmIDeath).ToArray();
@@ -62,7 +63,7 @@ public class CharacterMainBridge : MonoBehaviour
                     foreach (CharacterMainBridge enemyAi in enemies)
                     {
 //                        if (Vector3.Distance(enemyAi.transform.position ,transform.position) < AttackRange)
-                    if ((enemyAi.transform.position - transform.position).sqrMagnitude < AttackRange * AttackRange)
+                    if ((enemyAi.transform.position - transform.position).sqrMagnitude <= AttackRange * AttackRange)
                         {
                             Debug.Log(Vector3.Distance(enemyAi.transform.position, transform.position) + " " + AttackRange + " " + (Vector3.Distance(enemyAi.transform.position, transform.position) < (float)AttackRange));
                         if (!AmIDeath)
@@ -97,14 +98,35 @@ public class CharacterMainBridge : MonoBehaviour
         HealthKickerContraption = new HealthKickerContraption();
         HealthKickerContraption.SetHealth(HealthPoint);
 
-//        GetComponent<NavMeshAgent>().stoppingDistance = Mathf.Sqrt(AttackRange);
-        GetComponent<NavMeshAgent>().stoppingDistance = AttackRange;
+        if (!isHumanControl)
+        {
+            GetComponent<NavMeshAgent>().stoppingDistance = AttackRange;
+        }
 
         _animator = GetComponent<Animator>();
 
         if (!isHumanControl)
         {
             _ai = new BaseArtificialIntelligence();
+        }
+
+        _animator.SetLayerWeight(0, 0);
+
+        if (CharacterLayerEnum.Swordsman == CharacterLayerEnum)
+        {
+            _animator.SetLayerWeight(1, 1);
+        }
+        else if(CharacterLayerEnum.Archer == CharacterLayerEnum)
+        {
+            _animator.SetLayerWeight(2, 1);
+        } 
+        else if (CharacterLayerEnum.Zombie == CharacterLayerEnum)
+        {
+            _animator.SetLayerWeight(3, 1);
+        } 
+        else 
+        {
+            _animator.SetLayerWeight(0, 1);
         }
     }
 

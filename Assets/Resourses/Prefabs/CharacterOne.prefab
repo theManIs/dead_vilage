@@ -1893,9 +1893,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BillBoardHealth: {fileID: 1974037084377413702}
   AttackSpeed: 1
-  Ally: 1
-  AttackRange: 4
-  isHumanControl: 0
+  AttackRange: 2
+  isHumanControl: 1
+  HealthPoint: 10
+  HumanPlayer: {fileID: 0}
 --- !u!1 &1966012728494132871
 GameObject:
   m_ObjectHideFlags: 0
