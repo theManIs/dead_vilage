@@ -10,6 +10,12 @@ public class HeroAbilityScriptable : ScriptableObject
     public int StayingDuration = 1;
     public GameObject InstObject = null;
     public GameObject TemporaryEffect;
+    [Header("Игровые сущности")]
+    public int Cooldown;
+    public int Damage;
+    public int AreaRange;
+    public int Healing;
+    public int EnergyCost;
 
     public HeroAbilityScriptable()
     {

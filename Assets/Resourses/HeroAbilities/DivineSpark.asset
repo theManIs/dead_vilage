@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: DivineSpark
   m_EditorClassIdentifier: 
   OnSelf: 1
-  StayingDuration: 1
+  StayingDuration: 3
   InstObject: {fileID: 8816162102742990961, guid: 6d0edebf521d1874fb099e0ab0315193, type: 3}
-  ApplyLocked: 0
+  TemporaryEffect: {fileID: 0}
+  Cooldown: 0
+  Damage: 0
+  AreaRange: 0
+  Healing: 0
+  EnergyCost: 0
