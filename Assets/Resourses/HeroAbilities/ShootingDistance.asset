@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207759c3f9c52e440ac584af3a789678, type: 3}
+  m_Name: ShootingDistance
+  m_EditorClassIdentifier: 
+  OnSelf: 1
+  StayingDuration: 1
+  InstObject: {fileID: 1128899005252358517, guid: 8a00f864b5bfb7a408e57fa5426ec0ad, type: 3}
+  ApplyLocked: 0

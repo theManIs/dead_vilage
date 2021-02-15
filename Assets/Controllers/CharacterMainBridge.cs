@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityStandardAssets.Characters.ThirdPerson;
@@ -18,6 +19,15 @@ public class CharacterMainBridge : MonoBehaviour
     public int AnimationRotationError = 0;
     public bool AmIDeath { get; private set; } = false;
 
+    [Header("QWER Abilities")]
+    public HeroAbilityScriptable AbilityQ;
+    public HeroAbilityScriptable AbilityW;
+    public HeroAbilityScriptable AbilityE;
+    public HeroAbilityScriptable AbilityR;
+
+    [Header("Self imposed abilities apply point")]
+    public Transform ApplyPoint;
+
     private AICharacterControl _aiCharacterControl;
     private Animator _animator;
     private BaseArtificialIntelligence _ai;
@@ -31,6 +41,7 @@ public class CharacterMainBridge : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -40,6 +51,11 @@ public class CharacterMainBridge : MonoBehaviour
         {
             EnemyVision();
             EnemyDies();
+
+            if (isHumanControl)
+            {
+                CatchUserInput();
+            }
         }
 
         if (!_bilboardInit)
@@ -182,6 +198,63 @@ public class CharacterMainBridge : MonoBehaviour
                     GetComponent<NavMeshAgent>().stoppingDistance = 0.2f;
                 }
             }
+        }
+    }
+    public void RunTransform(Transform applyTransform, HeroAbilityScriptable has)
+    {
+//        Debug.Log("key pressed 1 " + (InstObject == null));
+
+        if (InstObject == null)
+        {
+//            Debug.Log("key pressed 3 " + (InstObject == null));
+            has.TemporaryEffect = Instantiate(has.InstObject, applyTransform);
+
+            InstObject = has;
+            Invoke(nameof(ReleaseLock), has.StayingDuration);
+        }
+    }
+
+    public void ReleaseLock()
+    {
+        Destroy(InstObject.TemporaryEffect);
+
+        InstObject = null;
+    }
+
+    public HeroAbilityScriptable InstObject;
+
+    public void CatchUserInput()
+    {
+        Dictionary<KeyCode, HeroAbilityScriptable> keyCodeReflect = new Dictionary<KeyCode, HeroAbilityScriptable>()
+        {
+            { KeyCode.Q, AbilityQ },
+            { KeyCode.W, AbilityW },
+            { KeyCode.E, AbilityE },
+            { KeyCode.R, AbilityR },
+        };
+
+        HeroAbilityScriptable amc = null;
+        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            amc = keyCodeReflect[KeyCode.Q];
+        } 
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            amc = keyCodeReflect[KeyCode.W];
+        } 
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            amc = keyCodeReflect[KeyCode.E];
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            amc = keyCodeReflect[KeyCode.R];
+        }
+
+        if (amc != null)
+        {
+            RunTransform(ApplyPoint, amc);
         }
     }
 }
