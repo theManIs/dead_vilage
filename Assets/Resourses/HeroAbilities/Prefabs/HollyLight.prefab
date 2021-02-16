@@ -38,6 +38,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3227192330436783033}
     m_Modifications:
+    - target: {fileID: 4589496999526404134, guid: 71d8f2a868f733e4da4daf1942273a7d, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4589496999526404134, guid: 71d8f2a868f733e4da4daf1942273a7d, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4589496999526404134, guid: 71d8f2a868f733e4da4daf1942273a7d, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4589496999540263238, guid: 71d8f2a868f733e4da4daf1942273a7d, type: 3}
       propertyPath: m_Name
       value: HolyLight 1
