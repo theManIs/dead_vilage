@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnSelf: 1
   StayingDuration: 3
-  InstObject: {fileID: 8816162102742990961, guid: 6d0edebf521d1874fb099e0ab0315193, type: 3}
+  InstObject: {fileID: 4914636125037977395, guid: 7b2d3ee8c39ed4a42aa384131d02c057, type: 3}
   TemporaryEffect: {fileID: 0}
   Cooldown: 0
   Damage: 0
