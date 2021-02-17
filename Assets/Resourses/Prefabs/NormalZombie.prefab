@@ -1157,6 +1157,14 @@ MonoBehaviour:
   HealthPoint: 2
   HumanPlayer: {fileID: 0}
   CharacterLayerEnum: 3
+  AnimationRotationError: 0
+  AbilityQ: {fileID: 0}
+  AbilityW: {fileID: 0}
+  AbilityE: {fileID: 0}
+  AbilityR: {fileID: 0}
+  PassiveAbilities: []
+  ApplyPoint: {fileID: 0}
+  InstObject: {fileID: 0}
 --- !u!1 &272849714677636266
 GameObject:
   m_ObjectHideFlags: 0

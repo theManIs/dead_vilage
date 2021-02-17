@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Contraptions;
 using Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,14 +20,18 @@ public class CharacterMainBridge : MonoBehaviour
     public int AnimationRotationError = 0;
     public bool AmIDeath { get; private set; } = false;
 
-    [Header("QWER Abilities")]
+    [Header("Hero Abilities")]
     public HeroAbilityScriptable AbilityQ;
     public HeroAbilityScriptable AbilityW;
     public HeroAbilityScriptable AbilityE;
     public HeroAbilityScriptable AbilityR;
+    public HeroAbilityScriptable[] ActiveAbilities;    
+    public HeroAbilityScriptable[] PassiveAbilities;    
 
     [Header("Self imposed abilities apply point")]
     public Transform ApplyPoint;
+
+    public HeroAbilityScriptable InstObject;
 
     private AICharacterControl _aiCharacterControl;
     private Animator _animator;
@@ -34,9 +39,9 @@ public class CharacterMainBridge : MonoBehaviour
     private bool _bilboardInit = false;
     private RaycastHit _ubiquitousRaycastHit;
     private bool _playerSpotted = false;
-    private LayerMask _lastPosLayer = (1 << 10),
-        enemyLayer = (1 << 9),
-        playerLayer = (1 << 8);
+    private LayerMask _lastPosLayer = (1 << 10), enemyLayer = (1 << 9), playerLayer = (1 << 8);
+    private HeroAbilityManagerContraption hamc;
+
 
     // Start is called before the first frame update
     void Start()
@@ -144,6 +149,9 @@ public class CharacterMainBridge : MonoBehaviour
         {
             _animator.SetLayerWeight(1, 1);
         }
+
+        hamc = new HeroAbilityManagerContraption(PassiveAbilities, ApplyPoint, ActiveAbilities);
+        hamc.RunPassive();
     }
 
 
@@ -200,61 +208,92 @@ public class CharacterMainBridge : MonoBehaviour
             }
         }
     }
-    public void RunTransform(Transform applyTransform, HeroAbilityScriptable has)
-    {
-//        Debug.Log("key pressed 1 " + (InstObject == null));
-
-        if (InstObject == null)
-        {
-//            Debug.Log("key pressed 3 " + (InstObject == null));
-            has.TemporaryEffect = Instantiate(has.InstObject, applyTransform);
-
-            InstObject = has;
-            Invoke(nameof(ReleaseLock), has.StayingDuration);
-        }
-    }
-
-    public void ReleaseLock()
-    {
-        Destroy(InstObject.TemporaryEffect);
-
-        InstObject = null;
-    }
-
-    public HeroAbilityScriptable InstObject;
+//    public void RunTransform(Transform applyTransform, HeroAbilityScriptable has)
+//    {
+////        Debug.Log("key pressed 1 " + (InstObject == null));
+//
+//        if (InstObject == null)
+//        {
+////            Debug.Log("key pressed 3 " + (InstObject == null));
+//            has.TemporaryEffect = Instantiate(has.InstObject, applyTransform);
+//
+//            InstObject = has;
+//            Invoke(nameof(ReleaseLock), has.StayingDuration);
+//        }
+//    }
+//
+//    public void ReleaseLock()
+//    {
+//        Destroy(InstObject.TemporaryEffect);
+//
+//        InstObject = null;
+//    }
 
     public void CatchUserInput()
     {
-        Dictionary<KeyCode, HeroAbilityScriptable> keyCodeReflect = new Dictionary<KeyCode, HeroAbilityScriptable>()
-        {
-            { KeyCode.Q, AbilityQ },
-            { KeyCode.W, AbilityW },
-            { KeyCode.E, AbilityE },
-            { KeyCode.R, AbilityR },
-        };
+//        Dictionary<KeyCode, HeroAbilityScriptable> keyCodeReflect = new Dictionary<KeyCode, HeroAbilityScriptable>()
+//        {
+//            { KeyCode.Q, AbilityQ },
+//            { KeyCode.W, AbilityW },
+//            { KeyCode.E, AbilityE },
+//            { KeyCode.R, AbilityR },
+//        };
+//
+//        HeroAbilityScriptable amc = null;
+//        
+//        if (Input.GetKeyDown(KeyCode.Q))
+//        {
+//            amc = keyCodeReflect[KeyCode.Q];
+//        } 
+//        else if (Input.GetKeyDown(KeyCode.W))
+//        {
+//            amc = keyCodeReflect[KeyCode.W];
+//        } 
+//        else if (Input.GetKeyDown(KeyCode.E))
+//        {
+//            amc = keyCodeReflect[KeyCode.E];
+//        }
+//        else if (Input.GetKeyDown(KeyCode.R))
+//        {
+//            amc = keyCodeReflect[KeyCode.R];
+//        }
+//
+//        if (amc != null)
+//        {
+//            RunTransform(ApplyPoint, amc);
+//        }
 
-        HeroAbilityScriptable amc = null;
-        
+        KeyCode keyPressed;
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            amc = keyCodeReflect[KeyCode.Q];
-        } 
+            keyPressed = KeyCode.Q;
+        }
         else if (Input.GetKeyDown(KeyCode.W))
         {
-            amc = keyCodeReflect[KeyCode.W];
-        } 
+            keyPressed = KeyCode.W;
+        }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            amc = keyCodeReflect[KeyCode.E];
+            keyPressed = KeyCode.E;
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
-            amc = keyCodeReflect[KeyCode.R];
+            keyPressed = KeyCode.R;
+        }
+        else
+        {
+            keyPressed = KeyCode.None;
         }
 
-        if (amc != null)
+        if (hamc != null)
         {
-            RunTransform(ApplyPoint, amc);
+            IEnumerator releaseCoroutine = hamc.RunActive(keyPressed);
+
+            if (releaseCoroutine != null)
+            {
+                StartCoroutine(releaseCoroutine);
+            }
         }
     }
 }
