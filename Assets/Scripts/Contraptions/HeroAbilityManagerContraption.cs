@@ -34,6 +34,8 @@ namespace Assets.Scripts.Contraptions
             }
         }
 
+        private int _energyLevel = 0;
+
         public void RunPassive()
         {
             if (SpawnedObjectsPassive.Count > 0)
@@ -65,21 +67,29 @@ namespace Assets.Scripts.Contraptions
 
                 if (has && !SpawnedObjectsActive.ContainsKey(has) && has.StayingDuration > 0)
                 {
-                    SpawnedObjectsActive[has] = Object.Instantiate(has.InstObject, SpawnPoint);
+                    if (_energyLevel - has.EnergyCost >= 0)
+                    {
+                        yield return has;
 
-                    return ReleaseActive(has, has.StayingDuration);
+                        SpawnedObjectsActive[has] = Object.Instantiate(has.InstObject, SpawnPoint);
+
+                        yield return new WaitForSeconds(has.StayingDuration);
+
+                        Object.Destroy(SpawnedObjectsActive[has]);
+                        SpawnedObjectsActive.Remove(has);
+                    }
                 }
             }
 
-            return null;
+
+            yield return null;
         }
 
-        public IEnumerator ReleaseActive(HeroAbilityScriptable has, int stayingDuration)
+        public HeroAbilityManagerContraption SetEnergyValue(int energyCurrentLevel)
         {
-            yield return new WaitForSeconds(stayingDuration);
+            _energyLevel = energyCurrentLevel;
 
-            Object.Destroy(SpawnedObjectsActive[has]);
-            SpawnedObjectsActive.Remove(has);
+            return this;
         }
     }
 }

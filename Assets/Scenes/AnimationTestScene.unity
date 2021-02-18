@@ -1097,7 +1097,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272849714677636132, guid: f00920c45c904ab4dbd3e3d806d1edb7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436281048454083610, guid: f00920c45c904ab4dbd3e3d806d1edb7, type: 3}
       propertyPath: HumanPlayer
@@ -1105,11 +1105,11 @@ PrefabInstance:
       objectReference: {fileID: 1153285066}
     - target: {fileID: 8131750405081699265, guid: f00920c45c904ab4dbd3e3d806d1edb7, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8131750405081699265, guid: f00920c45c904ab4dbd3e3d806d1edb7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f00920c45c904ab4dbd3e3d806d1edb7, type: 3}

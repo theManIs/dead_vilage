@@ -18,6 +18,7 @@ public class CharacterMainBridge : MonoBehaviour
     public CharacterMainBridge HumanPlayer;
     public CharacterLayerEnum CharacterLayerEnum = CharacterLayerEnum.None;
     public int AnimationRotationError = 0;
+    public int EnergyLevel = 100;
     public bool AmIDeath { get; private set; } = false;
 
     [Header("Hero Abilities")]
@@ -288,12 +289,16 @@ public class CharacterMainBridge : MonoBehaviour
 
         if (hamc != null)
         {
-            IEnumerator releaseCoroutine = hamc.RunActive(keyPressed);
+            IEnumerator abilityCoroutine = hamc.SetEnergyValue(EnergyLevel).RunActive(keyPressed);
 
-            if (releaseCoroutine != null)
+            abilityCoroutine.MoveNext();
+
+            if (abilityCoroutine.Current is HeroAbilityScriptable has)
             {
-                StartCoroutine(releaseCoroutine);
+                EnergyLevel -= has.EnergyCost;
             }
+
+            StartCoroutine(abilityCoroutine);
         }
     }
 }

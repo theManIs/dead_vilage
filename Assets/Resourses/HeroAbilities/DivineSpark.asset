@@ -20,4 +20,4 @@ MonoBehaviour:
   Damage: 0
   AreaRange: 0
   Healing: 0
-  EnergyCost: 0
+  EnergyCost: 20

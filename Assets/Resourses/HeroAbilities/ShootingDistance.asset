@@ -15,4 +15,9 @@ MonoBehaviour:
   OnSelf: 1
   StayingDuration: 1
   InstObject: {fileID: 1128899005252358517, guid: 8a00f864b5bfb7a408e57fa5426ec0ad, type: 3}
-  ApplyLocked: 0
+  TemporaryEffect: {fileID: 0}
+  Cooldown: 0
+  Damage: 0
+  AreaRange: 0
+  Healing: 0
+  EnergyCost: 20
