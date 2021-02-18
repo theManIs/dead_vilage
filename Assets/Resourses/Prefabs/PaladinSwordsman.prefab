@@ -1959,14 +1959,14 @@ MonoBehaviour:
   AttackSpeed: 1
   AttackRange: 2
   isHumanControl: 0
-  HealthPoint: 2
+  HealthPoint: 10
   HumanPlayer: {fileID: 0}
   CharacterLayerEnum: 1
   AnimationRotationError: 0
-  AbilityQ: {fileID: 11400000, guid: 5796222ffecf17f4c985bf789f9ffe4e, type: 2}
-  AbilityW: {fileID: 0}
-  AbilityE: {fileID: 0}
-  AbilityR: {fileID: 0}
+  EnergyLevel: 100
+  PlayerAlwaysSpotted: 0
+  ActiveAbilities:
+  - {fileID: 11400000, guid: 5796222ffecf17f4c985bf789f9ffe4e, type: 2}
   PassiveAbilities:
   - {fileID: 11400000, guid: a979c4775d3045d48896afdd3a1c6c3e, type: 2}
   ApplyPoint: {fileID: 814207923}

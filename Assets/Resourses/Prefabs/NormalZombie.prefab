@@ -1158,10 +1158,9 @@ MonoBehaviour:
   HumanPlayer: {fileID: 0}
   CharacterLayerEnum: 3
   AnimationRotationError: 0
-  AbilityQ: {fileID: 0}
-  AbilityW: {fileID: 0}
-  AbilityE: {fileID: 0}
-  AbilityR: {fileID: 0}
+  EnergyLevel: 100
+  PlayerAlwaysSpotted: 1
+  ActiveAbilities: []
   PassiveAbilities: []
   ApplyPoint: {fileID: 0}
   InstObject: {fileID: 0}

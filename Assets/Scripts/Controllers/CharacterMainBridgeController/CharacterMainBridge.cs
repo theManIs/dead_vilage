@@ -19,13 +19,10 @@ public class CharacterMainBridge : MonoBehaviour
     public CharacterLayerEnum CharacterLayerEnum = CharacterLayerEnum.None;
     public int AnimationRotationError = 0;
     public int EnergyLevel = 100;
+    public bool PlayerAlwaysSpotted;
     public bool AmIDeath { get; private set; } = false;
 
     [Header("Hero Abilities")]
-    public HeroAbilityScriptable AbilityQ;
-    public HeroAbilityScriptable AbilityW;
-    public HeroAbilityScriptable AbilityE;
-    public HeroAbilityScriptable AbilityR;
     public HeroAbilityScriptable[] ActiveAbilities;    
     public HeroAbilityScriptable[] PassiveAbilities;    
 
@@ -43,12 +40,12 @@ public class CharacterMainBridge : MonoBehaviour
     private LayerMask _lastPosLayer = (1 << 10), enemyLayer = (1 << 9), playerLayer = (1 << 8);
     private HeroAbilityManagerContraption hamc;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+//
+//    // Start is called before the first frame update
+//    void Start()
+//    {
+//
+//    }
 
     // Update is called once per frame
     void Update()
@@ -113,7 +110,7 @@ public class CharacterMainBridge : MonoBehaviour
 //        }
     }
 
-    public void OnEnable()
+    public void Start()
     {
         _aiCharacterControl = GetComponent<AICharacterControl>();
         
@@ -188,6 +185,12 @@ public class CharacterMainBridge : MonoBehaviour
 
     public void EnemyVision()
     {
+        if (PlayerAlwaysSpotted && HumanPlayer)
+        {
+            _playerSpotted = true;
+            _aiCharacterControl.SetTarget(HumanPlayer.transform);
+        }
+
         if (!isHumanControl && HumanPlayer)
         {
             if (Physics.Linecast(transform.position, HumanPlayer.transform.position, out RaycastHit hitPlayer, ~(_lastPosLayer))) // Linecast towards the player ignoring the last position layer

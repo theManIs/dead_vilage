@@ -10,7 +10,8 @@ public class TableOfEntities : MonoBehaviour
     public CharacterMainBridge MainPersonCharacter;
     public RPGCamera RpgCamera;
     public PlaceTargetWithMouse TargetAssistant;
-    public CharacterMainBridge[] EnemiesList;
+    public SpawnEnemies SpawnEnemies;
+    public List<CharacterMainBridge> EnemiesList;
 
     public void OnEnable()
     {
@@ -24,6 +25,10 @@ public class TableOfEntities : MonoBehaviour
         {
             characterMainBridge.HumanPlayer = MainPersonCharacter;
         }
+
+        SpawnEnemies.EnemiesList = EnemiesList;
+        SpawnEnemies.MainCharacterToPursue = MainPersonCharacter;
+
     }
 
     // Start is called before the first frame update
