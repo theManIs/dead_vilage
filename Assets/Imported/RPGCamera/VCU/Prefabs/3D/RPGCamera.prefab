@@ -58,7 +58,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -108,13 +108,13 @@ MonoBehaviour:
   invertMovement: 0
   hideCursor: 0
   target: {fileID: 0}
-  sensitivity: 232
-  CameraStartRotation: {x: 0, y: 57}
-  offset: {x: 0, y: 1, z: -15}
-  minOffset: {x: 0, y: 1, z: -15}
-  maxOffset: {x: 0, y: 1, z: -10}
+  sensitivity: 300
+  CameraStartRotation: {x: 0, y: 60}
+  offset: {x: 0, y: 0, z: -20}
+  minOffset: {x: 0, y: 1, z: -25}
+  maxOffset: {x: 0, y: 1, z: -17}
   rotationLimitsX: {x: 0, y: 0}
-  rotationLimitsY: {x: 57, y: 57}
+  rotationLimitsY: {x: 60, y: 60}
   limitXRotation: 1
   limitYRotation: 1
   zoom: Mouse ScrollWheel
