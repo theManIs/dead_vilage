@@ -2817,10 +2817,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.21387535
   m_Height: 1.6
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 0.8, z: -0.046124637}
 --- !u!195 &4116837274767182739
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2896,10 +2896,10 @@ MonoBehaviour:
   HumanPlayer: {fileID: 0}
   CharacterLayerEnum: 2
   AnimationRotationError: 50
-  AbilityQ: {fileID: 11400000, guid: dbaa15cd9d26ca3498365e4db5d6e8d6, type: 2}
-  AbilityW: {fileID: 11400000, guid: 2795d95ba9de05242aebc56a6d8cd8d9, type: 2}
-  AbilityE: {fileID: 11400000, guid: 5796222ffecf17f4c985bf789f9ffe4e, type: 2}
-  AbilityR: {fileID: 11400000, guid: a979c4775d3045d48896afdd3a1c6c3e, type: 2}
+  EnergyLevel: 100
+  PlayerAlwaysSpotted: 0
+  ActiveAbilities: []
+  PassiveAbilities: []
   ApplyPoint: {fileID: 319358462}
   InstObject: {fileID: 0}
 --- !u!1 &4116837274786690777

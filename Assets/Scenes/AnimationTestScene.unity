@@ -647,6 +647,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1956746257398308457, guid: 7cb6ceb3da242504c95f263fc25dfbbc, type: 3}
+      propertyPath: AttackRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956746257398308457, guid: 7cb6ceb3da242504c95f263fc25dfbbc, type: 3}
+      propertyPath: AttackSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956746257398308457, guid: 7cb6ceb3da242504c95f263fc25dfbbc, type: 3}
+      propertyPath: HealthPoint
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956746257398308457, guid: 7cb6ceb3da242504c95f263fc25dfbbc, type: 3}
       propertyPath: HumanPlayer
       value: 
       objectReference: {fileID: 8870313401160463713}
@@ -708,15 +720,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4116837274786690647, guid: 7cb6ceb3da242504c95f263fc25dfbbc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5346174109109369266, guid: 7cb6ceb3da242504c95f263fc25dfbbc, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5346174109109369266, guid: 7cb6ceb3da242504c95f263fc25dfbbc, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cb6ceb3da242504c95f263fc25dfbbc, type: 3}
@@ -988,7 +1000,7 @@ PrefabInstance:
     - target: {fileID: 1505171712896298090, guid: 762615d70fb7de94d9bb6ae0de2499a0, type: 3}
       propertyPath: MainPersonCharacter
       value: 
-      objectReference: {fileID: 8870313401160463713}
+      objectReference: {fileID: 406121486}
     - target: {fileID: 1505171712896298090, guid: 762615d70fb7de94d9bb6ae0de2499a0, type: 3}
       propertyPath: EnemiesList.Array.size
       value: 0
@@ -1060,11 +1072,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1855219288124321368, guid: af61e54bab9704b47978813674765d19, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1855219288124321368, guid: af61e54bab9704b47978813674765d19, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5235926325575666051, guid: af61e54bab9704b47978813674765d19, type: 3}
       propertyPath: HumanPlayer
@@ -1117,6 +1129,10 @@ PrefabInstance:
     - target: {fileID: 7687517753141338557, guid: af61e54bab9704b47978813674765d19, type: 3}
       propertyPath: m_Name
       value: PaladinSwordsman
+      objectReference: {fileID: 0}
+    - target: {fileID: 7687517753141338557, guid: af61e54bab9704b47978813674765d19, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af61e54bab9704b47978813674765d19, type: 3}

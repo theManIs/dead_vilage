@@ -5,6 +5,7 @@ using Assets.Scripts.Contraptions;
 using Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.ProBuilder;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 public class CharacterMainBridge : MonoBehaviour
@@ -39,6 +40,7 @@ public class CharacterMainBridge : MonoBehaviour
     private bool _playerSpotted = false;
     private LayerMask _lastPosLayer = (1 << 10), enemyLayer = (1 << 9), playerLayer = (1 << 8);
     private HeroAbilityManagerContraption hamc;
+    private float _attackIndicator = 100;
 
 //
 //    // Start is called before the first frame update
@@ -59,6 +61,8 @@ public class CharacterMainBridge : MonoBehaviour
             {
                 CatchUserInput();
             }
+
+            AutoAttack();
         }
 
         if (!_bilboardInit)
@@ -68,46 +72,59 @@ public class CharacterMainBridge : MonoBehaviour
             _bilboardInit = true;
         }
 
-//        if (isHumanControl)
-//        {
-            if (Time.frameCount % (200 / AttackSpeed) == 0)
+        if (AmIDeath && _aiCharacterControl.target != null)
+        {
+            Debug.Log(_aiCharacterControl.target);
+        }
+    }
+
+    public void AutoAttack()
+    {
+        _attackIndicator += Time.deltaTime;
+        float attackSpeedFloat = (float)60.0 / AttackSpeed;
+
+        if (!isHumanControl && _attackIndicator > attackSpeedFloat && _aiCharacterControl.target == null)
+        {
+            Debug.Log("Slash " + _attackIndicator + " " + attackSpeedFloat);
+        }
+
+        if (!isHumanControl && (HumanPlayer.transform.position - transform.position).sqrMagnitude <= AttackRange * AttackRange)
+        {
+            _aiCharacterControl.SetTarget(null);
+            Debug.Log("Human in range " + _attackIndicator + " " + attackSpeedFloat);
+        }
+
+        if (_attackIndicator > attackSpeedFloat && _aiCharacterControl.target == null)
+        {
+//            Debug.Log("Zombie Attack " + _attackIndicator);
+            CharacterMainBridge[] enemies = FindObjectsOfType<CharacterMainBridge>()
+                .Where(element => element.isHumanControl != isHumanControl && !element.AmIDeath).ToArray();
+
+            foreach (CharacterMainBridge enemyAi in enemies)
             {
-//                HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
-//            AnimatorClipInfo[] anstate = _animator.GetCurrentAnimatorClipInfo((int)CharacterLayerEnum);
-//
-//            if (anstate.Length > 0 && anstate[0].clip.name != "Standing Melee Attack Downward")
-//                {
-//                                Debug.Log("Clip lock passed " + gameObject.name);
-                    CharacterMainBridge[] enemies = FindObjectsOfType<CharacterMainBridge>()
-                        .Where(element => element.isHumanControl != isHumanControl && !element.AmIDeath).ToArray();
-//                    Debug.Log("Enemies found " + gameObject.name + " " + enemies.Length);
-
-                foreach (CharacterMainBridge enemyAi in enemies)
+                if ((enemyAi.transform.position - transform.position).sqrMagnitude <= AttackRange * AttackRange)
                 {
-//                        if (Vector3.Distance(enemyAi.transform.position ,transform.position) < AttackRange)
-                    if ((enemyAi.transform.position - transform.position).sqrMagnitude <= AttackRange * AttackRange)
+//                    Debug.Log("Enemy found - Zombie Attack " + _attackIndicator);
+                    if (_attackIndicator > attackSpeedFloat)
                     {
-//                            Debug.Log(Vector3.Distance(enemyAi.transform.position, transform.position) + " " + AttackRange + " " + (Vector3.Distance(enemyAi.transform.position, transform.position) < (float)AttackRange));
                         if (!AmIDeath)
-                            {
+                        {
+                            _attackIndicator = 0;
 
-                                _animator.SetTrigger("Slash");
-//                                Debug.Log("Super fuck " + enemyAi.gameObject.name);
-//                                Debug.Log(enemyAi.HealthKickerContraption);
+                            _animator.SetTrigger("Slash");
 
-                                enemyAi.HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
+                            enemyAi.HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
 
 
-                                Quaternion hitRot = Quaternion.LookRotation(enemyAi.transform.position - transform.position);
-                                transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y + AnimationRotationError, 0);
+                            Quaternion hitRot = Quaternion.LookRotation(enemyAi.transform.position - transform.position);
+                            transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y + AnimationRotationError, 0);
 
-                                break;
-                            }
+                            break;
                         }
                     }
                 }
-//            }
-//        }
+            }
+        }
     }
 
     public void Start()
@@ -171,12 +188,16 @@ public class CharacterMainBridge : MonoBehaviour
     {
         if (HealthKickerContraption.haveIKilled())
         {
-
             if (_animator != null)
             {
                 _animator.SetTrigger("Death");
 //                Debug.Log("Set trigger Death");
                 AmIDeath = true;
+            }
+
+            if (_aiCharacterControl)
+            {
+                _aiCharacterControl.SetTarget(null);
             }
 
             Destroy(this.gameObject, 4f);
@@ -188,7 +209,16 @@ public class CharacterMainBridge : MonoBehaviour
         if (PlayerAlwaysSpotted && HumanPlayer)
         {
             _playerSpotted = true;
-            _aiCharacterControl.SetTarget(HumanPlayer.transform);
+
+            if ((HumanPlayer.transform.position - transform.position).sqrMagnitude <= (AttackRange * AttackRange * .9f))
+            {
+                
+                _aiCharacterControl.SetTarget(null);
+            }
+            else
+            {
+                _aiCharacterControl.SetTarget(HumanPlayer.transform);
+            }
         }
 
         if (!isHumanControl && HumanPlayer)

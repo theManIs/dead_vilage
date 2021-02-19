@@ -1079,10 +1079,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.16572618
   m_Height: 1.6
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 0.8, z: -0.018497467}
 --- !u!195 &272849714691957216
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1151,7 +1151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BillBoardHealth: {fileID: 280565900751678699}
-  AttackSpeed: 1
+  AttackSpeed: 30
   AttackRange: 2
   isHumanControl: 0
   HealthPoint: 2
