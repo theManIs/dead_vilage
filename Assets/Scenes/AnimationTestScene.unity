@@ -652,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1956746257398308457, guid: 7cb6ceb3da242504c95f263fc25dfbbc, type: 3}
       propertyPath: AttackSpeed
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1956746257398308457, guid: 7cb6ceb3da242504c95f263fc25dfbbc, type: 3}
       propertyPath: HealthPoint
