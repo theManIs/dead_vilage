@@ -4369,6 +4369,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6920072475279333241, guid: fec6680d007ce2e46b117f7dd7805698, type: 3}
+      propertyPath: EachSeconds
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6920072475279333242, guid: fec6680d007ce2e46b117f7dd7805698, type: 3}
       propertyPath: m_Name
       value: SpawnEnemies
@@ -14216,6 +14220,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -1.5996094
       objectReference: {fileID: 0}
+    - target: {fileID: 4222435994456410245, guid: fa244a2f804cb534db23559eac9a2e14, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -52.880005
+      objectReference: {fileID: 0}
     - target: {fileID: 4222435994740890874, guid: fa244a2f804cb534db23559eac9a2e14, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.12084961
@@ -20229,7 +20237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BillBoardHealth: {fileID: 1690567943}
-  AttackSpeed: 1
+  AttackSpeed: 55
   AttackRange: 7
   isHumanControl: 0
   HealthPoint: 2
@@ -23311,7 +23319,7 @@ NavMeshAgent:
   m_Speed: 0.5
   m_Acceleration: 1
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 0.2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
