@@ -38,7 +38,7 @@ ModelImporter:
       name: Standing Death Left 01
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
+      firstFrame: 4
       lastFrame: 68
       wrapMode: 0
       orientationOffsetY: 0

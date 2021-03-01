@@ -38,7 +38,7 @@ ModelImporter:
       name: standing draw arrow
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
+      firstFrame: 3
       lastFrame: 31
       wrapMode: 0
       orientationOffsetY: 0
@@ -51,7 +51,7 @@ ModelImporter:
       loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
