@@ -2889,17 +2889,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BillBoardHealth: {fileID: 4110783556802184856}
-  AttackSpeed: 1
-  AttackRange: 7
+  AttackSpeed: 30
+  AttackRange: 5
   isHumanControl: 0
-  HealthPoint: 2
+  HealthPoint: 7
   HumanPlayer: {fileID: 0}
   CharacterLayerEnum: 2
-  AnimationRotationError: 50
+  AnimationRotationError: 0
   EnergyLevel: 100
   PlayerAlwaysSpotted: 0
   ActiveAbilities: []
-  PassiveAbilities: []
+  PassiveAbilities:
+  - {fileID: 11400000, guid: 2795d95ba9de05242aebc56a6d8cd8d9, type: 2}
   ApplyPoint: {fileID: 319358462}
   InstObject: {fileID: 0}
 --- !u!1 &4116837274786690777

@@ -41,6 +41,7 @@ public class CharacterMainBridge : MonoBehaviour
     private LayerMask _lastPosLayer = (1 << 10), enemyLayer = (1 << 9), playerLayer = (1 << 8);
     private HeroAbilityManagerContraption hamc;
     private float _attackIndicator = 100;
+    private CharacterMainBridge _lastFoundEnemy;
 
 //
 //    // Start is called before the first frame update
@@ -91,7 +92,7 @@ public class CharacterMainBridge : MonoBehaviour
         if (!isHumanControl && (HumanPlayer.transform.position - transform.position).sqrMagnitude <= AttackRange * AttackRange)
         {
             _aiCharacterControl.SetTarget(null);
-            Debug.Log("Human in range " + _attackIndicator + " " + attackSpeedFloat);
+//            Debug.Log("Human in range " + _attackIndicator + " " + attackSpeedFloat);
         }
 
         if (_attackIndicator > attackSpeedFloat && _aiCharacterControl.target == null)
@@ -111,10 +112,8 @@ public class CharacterMainBridge : MonoBehaviour
                         {
                             _attackIndicator = 0;
 
+                            _lastFoundEnemy = enemyAi;
                             _animator.SetTrigger("Slash");
-
-                            enemyAi.HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
-
 
                             Quaternion hitRot = Quaternion.LookRotation(enemyAi.transform.position - transform.position);
                             transform.rotation = Quaternion.Euler(0, hitRot.eulerAngles.y + AnimationRotationError, 0);
@@ -172,7 +171,16 @@ public class CharacterMainBridge : MonoBehaviour
 
     private void InitBillboard()
     {
-        if (BillBoardHealth && HealthKickerContraption != null)
+        if (isHumanControl && BillBoardHealth)
+        {
+            BillBoardHealth.DisableHealthBar();
+
+            HealthKickerContraption.IAmHit((int amount) =>
+            {
+                //do nothing
+            });
+        } 
+        else if (!isHumanControl && BillBoardHealth && HealthKickerContraption != null)
         {
             BillBoardHealth.SetMaxHealth(HealthKickerContraption.Health);
             BillBoardHealth.SetHealth(HealthKickerContraption.Health);
@@ -332,6 +340,14 @@ public class CharacterMainBridge : MonoBehaviour
             }
 
             StartCoroutine(abilityCoroutine);
+        }
+    }
+
+    public void ApplyFireDamage(AnimationEvent ae)
+    {
+        if (_lastFoundEnemy && !_lastFoundEnemy.AmIDeath && _lastFoundEnemy.HealthKickerContraption != null)
+        {
+            _lastFoundEnemy.HealthKickerContraption.hitMe(HealthKickerContraption.NormalDamage);
         }
     }
 }
