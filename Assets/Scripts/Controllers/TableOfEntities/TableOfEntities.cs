@@ -18,8 +18,11 @@ public class TableOfEntities : MonoBehaviour
         RpgCamera.target = MainPersonCharacter.transform;
         TargetAssistant.setTargetOn = MainPersonCharacter.gameObject;
 
-        MainPersonCharacter.isHumanControl = true;
-        MainPersonCharacter.GetComponent<NavMeshAgent>().speed = 1;
+        if (MainPersonCharacter)
+        {
+            MainPersonCharacter.isHumanControl = true;
+            MainPersonCharacter.GetComponent<NavMeshAgent>().speed = 1;
+        }
 
         foreach (CharacterMainBridge characterMainBridge in EnemiesList)
         {
