@@ -95,7 +95,7 @@ public class CharacterMainBridge : MonoBehaviour
 //            Debug.Log("Human in range " + _attackIndicator + " " + attackSpeedFloat);
         }
 
-        if (_attackIndicator > attackSpeedFloat && _aiCharacterControl.target == null)
+        if (_attackIndicator > attackSpeedFloat && _aiCharacterControl && _aiCharacterControl.target == null)
         {
 //            Debug.Log("Zombie Attack " + _attackIndicator);
             CharacterMainBridge[] enemies = FindObjectsOfType<CharacterMainBridge>()
