@@ -18,29 +18,28 @@ namespace UnityStandardAssets.SceneUtils
                 return;
             }
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            int ignoreNavigationLayer = 1 << 9;
-            ignoreNavigationLayer = ~ignoreNavigationLayer;
-            CharacterMainBridge cmb = null;
 
-            if (Physics.Raycast(ray, out hit, 100, ignoreNavigationLayer))
+            RaycastHit hit;
+            bool isHit = Physics.Raycast(ray, out hit, 100);
+//            int ignoreNavigationLayer = 1 << 9;
+//            ignoreNavigationLayer = ~ignoreNavigationLayer;
+            CharacterMainBridge cmb = null;
+//            Debug.Log(isHit + " "  + UnityTools.IsPointerOverUI() + " " + hit.collider.gameObject.layer);
+            if (!isHit || hit.collider.gameObject.layer != 9 || UnityTools.IsPointerOverUI())
             {
                 return;
             } 
             else
             {
-                if (!UnityTools.IsPointerOverUI())
-                {
-                    bool isHit = Physics.Raycast(ray, out hit, 100);
-                    if (isHit && hit.collider.gameObject.layer == 9)
-                    {
-                        Debug.Log(UnityTools.IsPointerOverUI());
-                    
+//                if (!UnityTools.IsPointerOverUI())
+//                {
+//                    if (isHit && hit.collider.gameObject.layer == 9)
+//                    {
                         cmb = hit.transform.GetComponent<CharacterMainBridge>();
-                    }
-                }
+//                    }
+//                }
             }
-
+            
             if (cmb != null)
             {
                 Debug.Log(hit.transform.gameObject.name);
@@ -50,6 +49,7 @@ namespace UnityStandardAssets.SceneUtils
             else
             {
                 transform.position = hit.point + hit.normal * surfaceOffset;
+
                 if (setTargetOn != null)
                 {
                     setTargetOn.SendMessage("SetTarget", transform);
