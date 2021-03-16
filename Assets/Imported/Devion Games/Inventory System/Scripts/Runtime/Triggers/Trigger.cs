@@ -11,7 +11,9 @@ namespace DevionGames.InventorySystem
     [UnityEngine.Scripting.APIUpdating.MovedFromAttribute(true, null, "Assembly-CSharp")]
     [DisallowMultipleComponent]
     public class Trigger : BehaviorTrigger
-	{
+    {
+        public bool PickIfInRange = false;
+
         public enum FailureCause {
             Unknown,
             FurtherAction, // Requires a user action(Select an item for crafting)
@@ -34,6 +36,18 @@ namespace DevionGames.InventorySystem
             Use();
         }
 
+        public void StartUseIfMarked()
+        {
+            if (PickIfInRange)
+            {
+                Use();
+            }
+        }
+
+        public void MarkItem()
+        {
+            PickIfInRange = true;
+        }
 
         public void StartUse(ItemContainer window)
         {

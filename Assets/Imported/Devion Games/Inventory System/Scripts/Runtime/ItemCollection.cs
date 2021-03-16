@@ -138,6 +138,7 @@ namespace DevionGames.InventorySystem
             if(onChange != null)
 			    onChange.Invoke ();
 
+//            Debug.Log("Add an item");
 		}
 
      

@@ -13,10 +13,9 @@ namespace UnityStandardAssets.SceneUtils
         // Update is called once per frame
         private void Update()
         {
-            if (!Input.GetMouseButtonDown(0))
-            {
-                return;
-            }
+            if (!Input.GetMouseButtonDown(0)) return;
+            if (setTargetOn == null) return;
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hit;
@@ -25,36 +24,36 @@ namespace UnityStandardAssets.SceneUtils
 //            ignoreNavigationLayer = ~ignoreNavigationLayer;
             CharacterMainBridge cmb = null;
 //            Debug.Log(isHit + " "  + UnityTools.IsPointerOverUI() + " " + hit.collider.gameObject.layer);
-            if (!isHit || hit.collider.gameObject.layer != 9 || UnityTools.IsPointerOverUI())
+
+            if (isHit && hit.collider.gameObject.layer == 7 && !UnityTools.IsPointerOverUI())
             {
-                return;
+                transform.position = Vector3.Lerp(setTargetOn.transform.position, hit.point + hit.normal * surfaceOffset, 1 - 2 / Vector3.Distance(setTargetOn.transform.position, hit.point));
+
+                hit.collider.gameObject.SendMessage("MarkItem");
+                setTargetOn.SendMessage("SetTarget", transform);
             } 
-            else
+            else if (isHit && hit.collider.gameObject.layer == 9 && !UnityTools.IsPointerOverUI())
             {
-//                if (!UnityTools.IsPointerOverUI())
-//                {
-//                    if (isHit && hit.collider.gameObject.layer == 9)
-//                    {
-                        cmb = hit.transform.GetComponent<CharacterMainBridge>();
-//                    }
-//                }
-            }
-            
-            if (cmb != null)
-            {
-                Debug.Log(hit.transform.gameObject.name);
+                cmb = hit.transform.GetComponent<CharacterMainBridge>();
 
-                cmb.HealthKickerContraption.hitMe(cmb.HealthKickerContraption.NormalDamage);
-            }
-            else
-            {
-                transform.position = hit.point + hit.normal * surfaceOffset;
-
-                if (setTargetOn != null)
+                if (cmb != null)
                 {
-                    setTargetOn.SendMessage("SetTarget", transform);
+                    Debug.Log(hit.transform.gameObject.name);
+
+                    cmb.HealthKickerContraption.hitMe(cmb.HealthKickerContraption.NormalDamage);
+                }
+                else
+                {
+                    transform.position = hit.point + hit.normal * surfaceOffset;
+
+                    if (setTargetOn != null)
+                    {
+                        setTargetOn.SendMessage("SetTarget", transform);
+                    }
                 }
             }
+            
+            
         }
     }
 }

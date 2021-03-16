@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6821340557825521422}
   - component: {fileID: 2271016630098244059}
   - component: {fileID: 224844577}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rusty Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 8139938110394569456}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0, y: 0.35999998, z: -0.000000004023314}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -98,8 +98,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2a0650d79394740b1bdb39be00be6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delegates: []
-  useDistance: -1
+  delegates:
+  - eventID: OnCameInRange
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3286705243418825680}
+          m_TargetAssemblyTypeName: DevionGames.InventorySystem.Trigger, DevionGames.InventorySystem
+          m_MethodName: StartUseIfMarked
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  useDistance: 2
   triggerType: 1
   key: 102
   actionTemplate: {fileID: 0}
@@ -107,6 +123,7 @@ MonoBehaviour:
   - id: 0
   - id: 1
   m_Interruptable: 0
+  PickIfInRange: 0
   references:
     version: 1
     00000000:

@@ -57,7 +57,8 @@ namespace DevionGames.InventorySystem
                     items.Add(item);
                 }
             }
-
+            Debug.Log(this.m_Amount);
+            Debug.Log(this.m_ItemCollection);
             for (int i = 0; i < items.Count; i++)
             {
                 Item item = items[i];
