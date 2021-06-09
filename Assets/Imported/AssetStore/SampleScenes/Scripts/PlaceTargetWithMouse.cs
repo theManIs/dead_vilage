@@ -27,7 +27,7 @@ namespace UnityStandardAssets.SceneUtils
 
             if (isHit && hit.collider.gameObject.layer == 7 && !UnityTools.IsPointerOverUI())
             {
-                transform.position = Vector3.Lerp(setTargetOn.transform.position, hit.point + hit.normal * surfaceOffset, 1 - 2 / Vector3.Distance(setTargetOn.transform.position, hit.point));
+                transform.position = Vector3.Lerp(setTargetOn.transform.position, hit.point + hit.normal * surfaceOffset, 1 - .8f * 2 / Vector3.Distance(setTargetOn.transform.position, hit.point));
 
                 hit.collider.gameObject.SendMessage("MarkItem");
                 setTargetOn.SendMessage("SetTarget", transform);
@@ -38,7 +38,7 @@ namespace UnityStandardAssets.SceneUtils
 
                 if (cmb != null)
                 {
-                    Debug.Log(hit.transform.gameObject.name);
+//                    Debug.Log(hit.transform.gameObject.name);
 
                     cmb.HealthKickerContraption.hitMe(cmb.HealthKickerContraption.NormalDamage);
                 }

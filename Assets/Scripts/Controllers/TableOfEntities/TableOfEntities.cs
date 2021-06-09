@@ -29,20 +29,11 @@ public class TableOfEntities : MonoBehaviour
             characterMainBridge.HumanPlayer = MainPersonCharacter;
         }
 
-        SpawnEnemies.EnemiesList = EnemiesList;
-        SpawnEnemies.MainCharacterToPursue = MainPersonCharacter;
+        if (SpawnEnemies)
+        {
+            SpawnEnemies.EnemiesList = EnemiesList;
+            SpawnEnemies.MainCharacterToPursue = MainPersonCharacter;
+        }
 
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
