@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.3
+    agentRadius: 0.2
     agentHeight: 1
     agentSlope: 51
-    agentClimb: 0.4
+    agentClimb: 0.5
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.1
+    cellSize: 0.06666667
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -2328,6 +2328,10 @@ PrefabInstance:
       value: Wall_Floor Alt
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -4273,6 +4277,10 @@ PrefabInstance:
       value: Wall_Floor Alt
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -4345,6 +4353,10 @@ PrefabInstance:
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_Name
       value: Wall_Floor Alt
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -5358,6 +5370,10 @@ PrefabInstance:
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_Name
       value: Wall_Floor Alt
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -9843,6 +9859,10 @@ PrefabInstance:
       value: Wall_Floor Alt
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -10221,6 +10241,10 @@ PrefabInstance:
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_Name
       value: Wall_Floor Alt (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -10895,6 +10919,10 @@ PrefabInstance:
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_Name
       value: Wall_Floor Alt
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -13312,6 +13340,10 @@ PrefabInstance:
       value: Wall_Floor Alt (1)
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -13486,6 +13518,10 @@ PrefabInstance:
       value: Wall_Floor Alt
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -13558,6 +13594,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 14987c031123b98408a165a8bf1288d4, type: 3}
       propertyPath: m_Name
       value: blood6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 14987c031123b98408a165a8bf1288d4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 14987c031123b98408a165a8bf1288d4, type: 3}
       propertyPath: m_RootOrder
@@ -13936,6 +13976,10 @@ PrefabInstance:
       value: Wall_Floor Alt (2)
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -14174,6 +14218,10 @@ PrefabInstance:
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_Name
       value: Wall_Floor Alt (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -17523,6 +17571,10 @@ PrefabInstance:
       value: Wall_Floor Alt
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -18834,6 +18886,10 @@ PrefabInstance:
       value: Wall_Floor Alt
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -19165,6 +19221,10 @@ PrefabInstance:
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_Name
       value: Wall_Floor Alt
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -19689,6 +19749,10 @@ PrefabInstance:
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_Name
       value: Wall_Floor Alt
+      objectReference: {fileID: 0}
+    - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 154288, guid: dac710fcf50026f44832f51c3ada717d, type: 3}
       propertyPath: m_StaticEditorFlags
